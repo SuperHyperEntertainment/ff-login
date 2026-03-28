@@ -11,28 +11,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = userInp.value.trim();
         const password = passInp.value.trim();
 
-        // Check individual users
+        // Include your Master Key logic here if you have one, otherwise just check USERS
         const validUser = USERS.find(u => u.username === username && u.password === password);
 
         if (validUser) {
-            loginSuccess(validUser.username);
+            loginSuccess(validUser);
         } else {
             errorMsg.textContent = "Invalid username or password.";
             errorMsg.style.display = "block";
         }
     }
 
-    function loginSuccess(username) {
+    function loginSuccess(user) {
         document.getElementById('login-screen').classList.remove('active');
         document.getElementById('app-screen').classList.add('active');
-        document.getElementById('user-greeting').textContent = `Hi, ${username}`;
         
-        // Initialize dashboard stats based on data.js
+        const displayName = user.name || user.username;
+        document.getElementById('user-greeting').textContent = `Hi, ${displayName}`;
+        document.getElementById('dash-greeting').textContent = `Welcome back, ${displayName}!`;
+        
         document.getElementById('stat-team').textContent = USERS.length;
         document.getElementById('stat-scenes').textContent = SCENES.length;
         
-        // Render scenes
+        // TRIGGERS - This is where we pass the username to the dashboard!
         if(window.renderScenes) window.renderScenes();
+        if(window.renderTeam) window.renderTeam();
+        if(window.renderDashboard) window.renderDashboard(user.username);
     }
 
     logoutBtn.addEventListener('click', () => {
