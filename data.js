@@ -14,7 +14,7 @@ const SCENES = [
     { id: 'SCN-004', title: 'Ending Credits', status: 'To Do', assignee: 'animator1' }
 ];
 
-// NEW: Universal Assignments Array
+// Universal Assignments Array
 const ASSIGNMENTS = [
     { 
         id: 'TSK-001', 
