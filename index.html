@@ -25,8 +25,12 @@
     </div>
 
     <div id="app-screen" class="screen">
+        
         <nav id="sidebar" class="glass-panel">
-            <div class="brand">StudioPro</div>
+            <div class="brand" style="display: flex; justify-content: space-between; align-items: center;">
+                StudioPro
+                <button id="close-sidebar-btn" class="text-btn mobile-only" style="font-size: 1.5rem;">×</button>
+            </div>
             <ul class="nav-links">
                 <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
                 <li><button class="nav-btn" data-target="scenes">Scene Tracker</button></li>
@@ -42,6 +46,12 @@
         </nav>
 
         <main id="main-content">
+            
+            <div id="mobile-header" class="glass-panel">
+                <span class="brand" style="margin-bottom: 0; font-size: 1.2rem;">StudioPro</span>
+                <button id="mobile-menu-btn" class="pro-btn" style="padding: 8px 12px; font-size: 1.2rem;">☰</button>
+            </div>
+
             <section id="dashboard" class="content-section active">
                 <h1 id="dash-greeting">Dashboard</h1>
                 
@@ -56,7 +66,7 @@
                     </div>
                     <div class="glass-panel stat-card">
                         <h3>Farm Status</h3>
-                        <p id="stat-farm" class="stat-number" style="color: #f08080;">Offline</p>
+                        <p id="stat-farm" class="stat-number" style="color: #10b981;">Online</p>
                     </div>
                 </div>
 
@@ -121,7 +131,9 @@
                     <div class="glass-panel info-box">
                         <h2>Studio Rules</h2>
                         <ul class="rules-list">
-                            <li><strong>1. uhhhh be nice...?</li>
+                            <li><strong>1. File Naming:</strong> Always use the format <code>SCN-XXX_v01.blend</code>.</li>
+                            <li><strong>2. Daily Standups:</strong> Post your progress in Discord by 10 AM EST.</li>
+                            <li><strong>3. Rendering:</strong> Do not tie up the farm for previews. Render locally first.</li>
                         </ul>
                     </div>
                     
