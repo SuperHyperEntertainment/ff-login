@@ -30,7 +30,9 @@
             <ul class="nav-links">
                 <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
                 <li><button class="nav-btn" data-target="scenes">Scene Tracker</button></li>
+                <li><button class="nav-btn" data-target="team">Team Roster</button></li>
                 <li><button class="nav-btn" data-target="analytics">Analytics</button></li>
+                <li><button class="nav-btn" data-target="info">Rules & Info</button></li>
                 <li><button class="nav-btn" data-target="settings">POV Settings</button></li>
             </ul>
             <div class="user-profile">
@@ -72,6 +74,12 @@
                 </div>
             </section>
 
+            <section id="team" class="content-section">
+                <h1>Team Roster</h1>
+                <div id="team-list" class="team-grid">
+                    </div>
+            </section>
+
             <section id="analytics" class="content-section">
                 <h1>Render Analytics</h1>
                 <div class="glass-panel calculator-box">
@@ -89,6 +97,34 @@
                 </div>
             </section>
 
+            <section id="info" class="content-section">
+                <h1>Studio Rules & Links</h1>
+                <div class="info-grid">
+                    <div class="glass-panel info-box">
+                        <h2>Studio Rules</h2>
+                        <ul class="rules-list">
+                            <li><strong>1. File Naming:</strong> Always use the format <code>SCN-XXX_v01.blend</code>.</li>
+                            <li><strong>2. Daily Standups:</strong> Post your progress in Discord by 10 AM EST.</li>
+                            <li><strong>3. Rendering:</strong> Do not tie up the farm for previews. Render locally first.</li>
+                            <li><strong>4. Feedback:</strong> Keep critiques constructive and focused on the artwork.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-panel info-box">
+                        <h2>Important Links</h2>
+                        <div class="links-list">
+                            <a href="#" class="pro-link" target="_blank">Join the Discord</a>
+                            <a href="#" class="pro-link" target="_blank">Studio Twitter / X</a>
+                            <a href="#" class="pro-link" target="_blank">Asset Library (Drive)</a>
+                        </div>
+                        <hr class="info-divider">
+                        <h2>IT & Helpdesk</h2>
+                        <p class="helpdesk-text">Running into software issues or portal bugs? Reach out to our tech team:</p>
+                        <a href="mailto:flamingoflickers@gmail.com" class="pro-btn email-btn">flamingoflickers@gmail.com</a>
+                    </div>
+                </div>
+            </section>
+
             <section id="settings" class="content-section">
                 <h1>POV Customization</h1>
                 <div class="glass-panel settings-box">
@@ -96,7 +132,7 @@
                         <span>Theme Mode</span>
                         <button id="theme-toggle" class="pro-btn">Toggle Light/Dark</button>
                     </div>
-                    <hr>
+                    <hr class="info-divider">
                     <div class="setting-item">
                         <span>Accent Color</span>
                         <div class="color-options">
@@ -115,6 +151,7 @@
     <script src="auth.js"></script>
     <script src="nav.js"></script>
     <script src="scenes.js"></script>
+    <script src="team.js"></script>
     <script src="analytics.js"></script>
     <script src="settings.js"></script>
 </body>
