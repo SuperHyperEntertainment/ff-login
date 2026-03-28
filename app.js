@@ -1,4 +1,4 @@
-const SB_URL = "YOUR_SUPABASE_URL";
+const SB_URL = "https://mrzrpfqwwmtvokwgrsmp.supabase.co";
 const SB_KEY = "YOUR_SUPABASE_ANON_KEY";
 const supabase = window.supabase.createClient(SB_URL, SB_KEY);
 
