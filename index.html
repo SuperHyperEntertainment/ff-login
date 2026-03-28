@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlickerPro | Portal</title>
+    <title>StudioPro | Animation Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-mode">
 
     <div id="login-screen" class="screen active">
         <div class="glass-panel login-box">
-            <h2>Login Page</h2>
+            <h2>Studio Access</h2>
             <div class="input-group">
                 <label>Username</label>
                 <input type="text" id="login-username" placeholder="e.g. animator1">
@@ -19,14 +19,14 @@
                 <label>Password</label>
                 <input type="password" id="login-password" placeholder="••••••••">
             </div>
-            <button id="login-btn" class="pro-btn">Login</button>
+            <button id="login-btn" class="pro-btn">Enter Portal</button>
             <p id="login-error" class="error-msg"></p>
         </div>
     </div>
 
     <div id="app-screen" class="screen">
         <nav id="sidebar" class="glass-panel">
-            <div class="brand">FlickerPro</div>
+            <div class="brand">StudioPro</div>
             <ul class="nav-links">
                 <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
                 <li><button class="nav-btn" data-target="scenes">Scene Tracker</button></li>
@@ -43,7 +43,8 @@
 
         <main id="main-content">
             <section id="dashboard" class="content-section active">
-                <h1>Dashboard</h1>
+                <h1 id="dash-greeting">Dashboard</h1>
+                
                 <div class="stats-grid">
                     <div class="glass-panel stat-card">
                         <h3>Active Scenes</h3>
@@ -52,6 +53,23 @@
                     <div class="glass-panel stat-card">
                         <h3>Team Members</h3>
                         <p id="stat-team" class="stat-number">0</p>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <h3>Farm Status</h3>
+                        <p id="stat-farm" class="stat-number" style="color: #10b981;">Online</p>
+                    </div>
+                </div>
+
+                <div class="dash-layout">
+                    <div class="glass-panel dash-widget">
+                        <h2>My Assignments</h2>
+                        <ul id="my-assignments-list" class="dash-list">
+                            </ul>
+                    </div>
+                    <div class="glass-panel dash-widget">
+                        <h2>Recent Activity</h2>
+                        <ul id="activity-feed" class="dash-list">
+                            </ul>
                     </div>
                 </div>
             </section>
@@ -106,20 +124,12 @@
                             <li><strong>1. File Naming:</strong> Always use the format <code>SCN-XXX_v01.blend</code>.</li>
                             <li><strong>2. Daily Standups:</strong> Post your progress in Discord by 10 AM EST.</li>
                             <li><strong>3. Rendering:</strong> Do not tie up the farm for previews. Render locally first.</li>
-                            <li><strong>4. Feedback:</strong> Keep critiques constructive and focused on the artwork.</li>
                         </ul>
                     </div>
                     
                     <div class="glass-panel info-box">
-                        <h2>Important Links</h2>
-                        <div class="links-list">
-                            <a href="#" class="pro-link" target="_blank">Join the Discord</a>
-                            <a href="#" class="pro-link" target="_blank">Studio Twitter / X</a>
-                            <a href="#" class="pro-link" target="_blank">Asset Library (Drive)</a>
-                        </div>
-                        <hr class="info-divider">
                         <h2>IT & Helpdesk</h2>
-                        <p class="helpdesk-text">Running into software issues or portal bugs? Reach out to our tech team:</p>
+                        <p class="helpdesk-text">Running into software issues or portal bugs?</p>
                         <a href="mailto:flamingoflickers@gmail.com" class="pro-btn email-btn">flamingoflickers@gmail.com</a>
                     </div>
                 </div>
@@ -150,6 +160,7 @@
     <script src="data.js"></script>
     <script src="auth.js"></script>
     <script src="nav.js"></script>
+    <script src="dashboard.js"></script>
     <script src="scenes.js"></script>
     <script src="team.js"></script>
     <script src="analytics.js"></script>
