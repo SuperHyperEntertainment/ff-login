@@ -1,0 +1,49 @@
+:root {
+    --bg: #0b0e14;
+    --card: #161b22;
+    --accent: #79c0ff;
+    --text: #c9d1d9;
+    --border: #30363d;
+}
+
+body.light-mode {
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --accent: #0969da;
+    --text: #1f2328;
+    --border: #d0d7de;
+}
+
+* { box-sizing: border-box; transition: 0.2s ease; }
+body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+
+.screen { display: none; height: 100vh; }
+.screen.active { display: flex; }
+
+/* Login Styling */
+#login-screen { justify-content: center; align-items: center; background: linear-gradient(45deg, #0b0e14, #161b22); }
+.glass-card { background: var(--card); padding: 40px; border-radius: 16px; border: 1px solid var(--border); width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
+button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: var(--accent); color: white; font-weight: bold; cursor: pointer; }
+button:hover { opacity: 0.8; transform: translateY(-2px); }
+
+/* Sidebar */
+.sidebar { width: 260px; background: var(--card); border-right: 1px solid var(--border); padding: 20px; display: flex; flex-direction: column; }
+.user-info { text-align: center; margin-bottom: 30px; }
+#user-avatar { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--accent); margin-bottom: 10px; }
+nav button { background: none; text-align: left; margin-bottom: 5px; color: var(--text); }
+nav button:hover { background: var(--border); }
+
+/* Layout */
+.content-area { flex: 1; padding: 40px; overflow-y: auto; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* Chat */
+.chat-wrapper { height: 60vh; display: flex; flex-direction: column; background: var(--card); border-radius: 12px; border: 1px solid var(--border); }
+#chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.msg { padding: 10px 15px; border-radius: 12px; background: var(--border); max-width: 70%; }
+.msg.me { align-self: flex-end; background: var(--accent); color: white; }
+.chat-input { display: flex; padding: 15px; gap: 10px; border-top: 1px solid var(--border); }
+
+.error { color: #ff7b72; font-size: 0.8rem; margin-top: 10px; }
