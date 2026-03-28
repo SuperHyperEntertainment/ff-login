@@ -1,9 +1,9 @@
 window.renderDashboard = function(loggedInUsername) {
-    // 1. Filter "My Assignments"
+    // 1. Render "My Assignments"
     const myAssignmentsList = document.getElementById('my-assignments-list');
     myAssignmentsList.innerHTML = ''; 
     
-    // Find assignments where the assignee matches the logged-in user
+    // Filter tasks based on whoever just logged in
     const myTasks = ASSIGNMENTS.filter(task => task.assignee === loggedInUsername);
     
     if (myTasks.length === 0) {
@@ -23,18 +23,15 @@ window.renderDashboard = function(loggedInUsername) {
         });
     }
 
-    // 2. Render Fake Activity Feed
+    // 2. Render Activity Feed directly from data.js
     const activityFeed = document.getElementById('activity-feed');
     activityFeed.innerHTML = '';
     
-    const activities = [
-        "Director approved SCN-003",
-        "Sam uploaded SCN-002_v04.blend",
-        "Jordan started rendering SCN-001",
-        "Farm node 4 restarted successfully"
-    ];
-    
-    activities.forEach(act => {
-        activityFeed.innerHTML += `<li>${act}</li>`;
-    });
+    if (ACTIVITIES.length === 0) {
+        activityFeed.innerHTML = '<li><span style="color: var(--text-muted);">No recent activity.</span></li>';
+    } else {
+        ACTIVITIES.forEach(act => {
+            activityFeed.innerHTML += `<li>${act}</li>`;
+        });
+    }
 };
