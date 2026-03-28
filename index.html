@@ -78,94 +78,112 @@
     </div>
 
     <script>
-        // CONFIGURATION
-        const SB_URL = "PASTE_YOUR_SUPABASE_URL_HERE"; 
-        const SB_KEY = "PASTE_YOUR_ANON_KEY_HERE";
-        const supabase = window.supabase.createClient(SB_URL, SB_KEY);
+<script>
+    // 1. CONFIGURATION (Paste your real info inside the quotes)
+    const SB_URL = "PASTE_YOUR_SUPABASE_URL_HERE"; 
+    const SB_KEY = "PASTE_YOUR_ANON_KEY_HERE";
 
-        let myProfile = null;
+    // 2. THE KEY CHECKER
+    // This runs immediately to see if you forgot to swap the placeholder text
+    if (SB_URL.includes("PASTE_YOUR") || SB_KEY.includes("PASTE_YOUR") || SB_URL === "" || SB_KEY === "") {
+        alert("⚠️ SETUP ERROR: You haven't added your Supabase Keys yet! \n\nPlease go to app.js (or index.html) and paste your Project URL and Anon Key.");
+        console.error("Missing Supabase Configuration. The app will not function.");
+    }
 
-        // LOGIN LOGIC
-        document.getElementById('btn-login').onclick = async () => {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('pass').value;
+    // Initialize Supabase
+    const supabase = window.supabase.createClient(SB_URL, SB_KEY);
+    let myProfile = null;
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password: pass });
-            
-            if (error) {
-                document.getElementById('error-log').innerText = error.message;
-                return;
-            }
-
-            // Fetch Profile
-            const { data: profile, error: pError } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', data.user.id)
-                .single();
-
-            if (pError || !profile) {
-                alert("Login okay, but no Profile found. Add your User ID to the profiles table!");
-                return;
-            }
-
-            myProfile = profile;
-            startApp();
-        };
-
-        function startApp() {
-            document.getElementById('login-screen').classList.remove('active');
-            document.getElementById('app-screen').classList.add('active');
-            document.getElementById('user-display').innerText = myProfile.username;
-            
-            if (myProfile.role === 'admin') document.getElementById('admin-btn').style.display = 'block';
-
-            loadData();
-            listenRealtime();
+    // LOGIN LOGIC
+    document.getElementById('btn-login').onclick = async () => {
+        // Double check keys again on click just in case
+        if (SB_URL.includes("PASTE_YOUR")) {
+            alert("Stop! You are still using the default 'PASTE_YOUR' text. Please go to Supabase Settings > API to get your real keys.");
+            return;
         }
 
-        function showPage(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-' + id).classList.add('active');
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('pass').value;
+
+        if (!email || !pass) {
+            alert("Please enter both an email and a password.");
+            return;
         }
 
-        async function loadData() {
-            // Load Announcement
-            const { data } = await supabase.from('settings').select('announcement').eq('id', 1).single();
-            if (data) document.getElementById('announcement').innerText = data.announcement;
-            
-            // Load Chat
-            const { data: msgs } = await supabase.from('messages').select('*').order('created_at', {ascending: true});
-            msgs.forEach(addMsg);
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password: pass });
+        
+        if (error) {
+            document.getElementById('error-log').innerText = "Login Failed: " + error.message;
+            return;
         }
 
-        function listenRealtime() {
-            supabase.channel('room1').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (p) => addMsg(p.new)).subscribe();
-            supabase.channel('room2').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'settings' }, (p) => {
-                document.getElementById('announcement').innerText = p.new.announcement;
-            }).subscribe();
+        // Fetch Profile
+        const { data: profile, error: pError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', data.user.id)
+            .single();
+
+        if (pError || !profile) {
+            alert("Auth Successful, but no Profile found! \n\nCheck your 'profiles' table in Supabase and make sure your User ID is added there.");
+            return;
         }
 
-        document.getElementById('send-btn').onclick = async () => {
-            const input = document.getElementById('chat-input');
-            await supabase.from('messages').insert([{ sender_name: myProfile.username, content: input.value }]);
-            input.value = "";
-        };
+        myProfile = profile;
+        startApp();
+    };
 
-        function addMsg(msg) {
-            const box = document.getElementById('chat-box');
-            const div = document.createElement('div');
-            div.className = `msg ${msg.sender_name === myProfile.username ? 'me' : ''}`;
-            div.innerHTML = `<b>${msg.sender_name}:</b> ${msg.content}`;
-            box.appendChild(div);
-            box.scrollTop = box.scrollHeight;
-        }
+    function startApp() {
+        document.getElementById('login-screen').classList.remove('active');
+        document.getElementById('app-screen').classList.add('active');
+        document.getElementById('user-display').innerText = myProfile.username;
+        
+        if (myProfile.role === 'admin') document.getElementById('admin-btn').style.display = 'block';
 
-        async function updateAnn() {
-            const val = document.getElementById('new-ann').value;
-            await supabase.from('settings').update({ announcement: val }).eq('id', 1);
-            alert("Updated!");
-        }
-    </script>
-</body>
-</html>
+        loadData();
+        listenRealtime();
+    }
+
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + id).classList.add('active');
+    }
+
+    async function loadData() {
+        const { data } = await supabase.from('settings').select('announcement').eq('id', 1).single();
+        if (data) document.getElementById('announcement').innerText = data.announcement;
+        
+        const { data: msgs } = await supabase.from('messages').select('*').order('created_at', {ascending: true});
+        if (msgs) msgs.forEach(addMsg);
+    }
+
+    function listenRealtime() {
+        supabase.channel('room1').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (p) => addMsg(p.new)).subscribe();
+        supabase.channel('room2').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'settings' }, (p) => {
+            document.getElementById('announcement').innerText = p.new.announcement;
+        }).subscribe();
+    }
+
+    document.getElementById('send-btn').onclick = async () => {
+        const input = document.getElementById('chat-input');
+        if (!input.value.trim()) return;
+        await supabase.from('messages').insert([{ sender_name: myProfile.username, content: input.value }]);
+        input.value = "";
+    };
+
+    function addMsg(msg) {
+        const box = document.getElementById('chat-box');
+        const div = document.createElement('div');
+        div.className = `msg ${msg.sender_name === myProfile.username ? 'me' : ''}`;
+        div.innerHTML = `<b>${msg.sender_name}:</b> ${msg.content}`;
+        box.appendChild(div);
+        box.scrollTop = box.scrollHeight;
+    }
+
+    async function updateAnn() {
+        const val = document.getElementById('new-ann').value;
+        const { error } = await supabase.from('settings').update({ announcement: val }).eq('id', 1);
+        if (error) alert("Error updating: " + error.message);
+        else alert("Announcement updated for the whole team!");
+    }
+</script>
