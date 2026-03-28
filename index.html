@@ -3,100 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AniHub | Animation Studio</title>
+    <title>StudioPro | Animation Portal</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="dark-mode">
 
     <div id="login-screen" class="screen active">
-        <div class="login-card animate-pop">
-            <div class="logo-icon">A</div>
-            <h1>AniHub Studio</h1>
+        <div class="glass-panel login-box">
+            <h2>Studio Access</h2>
             <div class="input-group">
-                <input type="text" id="username-input" placeholder="Artist Name" autocomplete="off">
-                <input type="password" id="pass-input" placeholder="Password">
+                <label>Username</label>
+                <input type="text" id="login-username" placeholder="e.g. animator1">
             </div>
-            <button class="btn-primary" onclick="checkLogin()">Enter Studio</button>
-            <p id="error" class="error-text">Invalid Credentials</p>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+            </div>
+            <button id="login-btn" class="pro-btn">Enter Portal</button>
+            <p id="login-error" class="error-msg"></p>
         </div>
     </div>
 
-    <div id="main-app" class="screen">
-        <aside class="sidebar">
-            <div class="profile-section">
-                <div class="avatar-ring">
-                    <div class="avatar-core"></div>
-                </div>
-                <h2 id="welcome-msg">Hi, Artist</h2>
-                <span class="status-tag">Online</span>
+    <div id="app-screen" class="screen">
+        <nav id="sidebar" class="glass-panel">
+            <div class="brand">StudioPro</div>
+            <ul class="nav-links">
+                <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
+                <li><button class="nav-btn" data-target="scenes">Scene Tracker</button></li>
+                <li><button class="nav-btn" data-target="analytics">Analytics</button></li>
+                <li><button class="nav-btn" data-target="settings">POV Settings</button></li>
+            </ul>
+            <div class="user-profile">
+                <span id="user-greeting">Hi, User</span>
+                <button id="logout-btn" class="text-btn">Logout</button>
             </div>
-            
-            <nav class="nav-links">
-                <button class="nav-item active" onclick="showPage('dash', this)">🏠 Dashboard</button>
-                <button class="nav-item" onclick="showPage('scenes', this)">🎬 Scene Tracker</button>
-                <button class="nav-item" onclick="showPage('analytics', this)">📊 Analytics</button>
-                <button class="nav-item" onclick="showPage('custom', this)">🎨 Customize</button>
-            </nav>
+        </nav>
 
-            <button class="btn-logout" onclick="location.reload()">Sign Out</button>
-        </aside>
-
-        <main class="content">
-            <section id="page-dash" class="page active">
-                <h1 class="page-title">Studio Overview</h1>
-                <div class="stats-row">
-                    <div class="mini-card">
-                        <span>Active Projects</span>
-                        <h2>4</h2>
+        <main id="main-content">
+            <section id="dashboard" class="content-section active">
+                <h1>Dashboard</h1>
+                <div class="stats-grid">
+                    <div class="glass-panel stat-card">
+                        <h3>Active Scenes</h3>
+                        <p id="stat-scenes" class="stat-number">0</p>
                     </div>
-                    <div class="mini-card">
-                        <span>Due Date</span>
-                        <h2>Oct 12</h2>
+                    <div class="glass-panel stat-card">
+                        <h3>Team Members</h3>
+                        <p id="stat-team" class="stat-number">0</p>
                     </div>
                 </div>
             </section>
 
-            <section id="page-scenes" class="page">
-                <h1 class="page-title">Scene Pipeline</h1>
-                <div class="card">
-                    <div id="scene-list">
+            <section id="scenes" class="content-section">
+                <h1>Scene Tracker</h1>
+                <div class="glass-panel table-container">
+                    <table id="scene-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Assignee</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scene-list">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="analytics" class="content-section">
+                <h1>Render Analytics</h1>
+                <div class="glass-panel calculator-box">
+                    <h2>Render Time Calculator</h2>
+                    <div class="input-group">
+                        <label>Total Frames</label>
+                        <input type="number" id="calc-frames" placeholder="e.g. 240">
+                    </div>
+                    <div class="input-group">
+                        <label>Seconds per Frame</label>
+                        <input type="number" id="calc-spf" placeholder="e.g. 45">
+                    </div>
+                    <button id="calc-btn" class="pro-btn">Calculate Estimate</button>
+                    <div id="calc-result" class="result-box"></div>
+                </div>
+            </section>
+
+            <section id="settings" class="content-section">
+                <h1>POV Customization</h1>
+                <div class="glass-panel settings-box">
+                    <div class="setting-item">
+                        <span>Theme Mode</span>
+                        <button id="theme-toggle" class="pro-btn">Toggle Light/Dark</button>
+                    </div>
+                    <hr>
+                    <div class="setting-item">
+                        <span>Accent Color</span>
+                        <div class="color-options">
+                            <button class="color-btn" data-color="#6366f1" style="background: #6366f1;"></button>
+                            <button class="color-btn" data-color="#a855f7" style="background: #a855f7;"></button>
+                            <button class="color-btn" data-color="#14b8a6" style="background: #14b8a6;"></button>
+                            <button class="color-btn" data-color="#f43f5e" style="background: #f43f5e;"></button>
                         </div>
-                </div>
-            </section>
-
-            <section id="page-analytics" class="page">
-                <h1 class="page-title">Production Metrics</h1>
-                <div class="card">
-                    <h3>Render Time Calculator</h3>
-                    <div class="calc-row">
-                        <input type="number" id="calc-frames" placeholder="Total Frames">
-                        <input type="number" id="calc-sec" placeholder="Sec per Frame">
-                        <button class="btn-secondary" onclick="calculateRender()">Calculate</button>
-                    </div>
-                    <p id="calc-result" style="margin-top:15px; font-weight:bold; color:var(--accent);"></p>
-                </div>
-            </section>
-
-            <section id="page-custom" class="page">
-                <h1 class="page-title">Interface Settings</h1>
-                <div class="card">
-                    <h3>Theme Mode</h3>
-                    <button class="btn-secondary" onclick="toggleTheme()">Toggle Light/Dark</button>
-                </div>
-                <div class="card">
-                    <h3>Accent Color</h3>
-                    <div class="color-picker">
-                        <div class="dot blue" onclick="changeAccent('#3b82f6')"></div>
-                        <div class="dot purple" onclick="changeAccent('#a855f7')"></div>
-                        <div class="dot green" onclick="changeAccent('#22c55e')"></div>
-                        <div class="dot orange" onclick="changeAccent('#f97316')"></div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/scenes.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/settings.js"></script>
 </body>
 </html>
