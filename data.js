@@ -41,8 +41,5 @@ const ASSIGNMENTS = [
 
 // Recent Activity Feed (Edit this to show what the studio is up to)
 const ACTIVITIES = [
-    "Director approved SCN-003",
-    "Sam uploaded SCN-002_v04.blend",
-    "Jordan started rendering SCN-001",
-    "Farm node 4 restarted successfully"
+    "HexxedDev added the website! Welcome in!"
 ];
