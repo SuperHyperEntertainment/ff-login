@@ -1,7 +1,7 @@
 // Central Data Configuration
 
 const USERS = [
-    { username: 'HexxedDev', password: '326214Green?', name: 'Patrick Kaiser', role: 'Director, Producer and Writer' },
+    { username: 'director', password: 'password123', name: 'Alex Vance', role: 'Project Director' },
     { username: 'animator1', password: 'renderpass', name: 'Sam Miller', role: 'Lead Animator' },
     { username: 'lighter2', password: 'lightpass', name: 'Jordan Lee', role: 'Lighting Artist' },
     { username: 'voiceactor1', password: 'miccheck', name: 'Casey Smith', role: 'Voice Talent' }
@@ -14,7 +14,7 @@ const SCENES = [
     { id: 'SCN-004', title: 'Ending Credits', status: 'To Do', assignee: 'animator1' }
 ];
 
-// Universal Assignments Array
+// Universal Assignments Array (Edit this to give team members tasks)
 const ASSIGNMENTS = [
     { 
         id: 'TSK-001', 
@@ -37,4 +37,12 @@ const ASSIGNMENTS = [
         dueDate: 'Apr 1st', 
         assignee: 'director' 
     }
+];
+
+// Recent Activity Feed (Edit this to show what the studio is up to)
+const ACTIVITIES = [
+    "Director approved SCN-003",
+    "Sam uploaded SCN-002_v04.blend",
+    "Jordan started rendering SCN-001",
+    "Farm node 4 restarted successfully"
 ];
